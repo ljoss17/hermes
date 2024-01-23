@@ -480,7 +480,7 @@ jobs:
           make wasm-opt
           mkdir -p $HOME/bin
           cp bin/wasm-opt $HOME/bin/wasm-opt
-          echo "PATH=\$HOME/bin:\$PATH" >> $GITHUB_ENV
+          export PATH=$HOME/bin:$PATH
       - name: Display PATH for debugging
         run: echo $PATH
       - name: Generate Namada files
