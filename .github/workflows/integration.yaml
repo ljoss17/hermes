@@ -459,11 +459,16 @@ jobs:
       - name: Retrieve Namada repository path
         id: namada-repo-path
         run: echo "NAMADA_REPO_PATH=$(nix build .#namada-src --print-out-paths)" >> "$GITHUB_OUTPUT"
+      - name: Fix permissions for Namada repository:
+        id: namada-permissions
+        run: |
+          cp -r ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }} /tmp/namada-repo
+          chmod -R 777 /tmp/namada-repo
+        run: echo "NAMADA_REPO_PATH=$(nix build .#namada-src --print-out-paths)" >> "$GITHUB_OUTPUT"
       - name: Generate Namada files
         run: |
           set -e
-          cd ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}
-          make build
+          cd ${{ steps.namada-permissions.outputs.NAMADA_REPO_PATH }}
           make build-wasm-scripts
       - env:
           RUST_LOG: info
