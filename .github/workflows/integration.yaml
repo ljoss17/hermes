@@ -460,7 +460,7 @@ jobs:
       - name: Retrieve Namada repository path
         id: namada-repo-path
         run: echo "NAMADA_REPO_PATH=$(nix build .#namada-src --print-out-paths)" >> "$GITHUB_OUTPUT"
-      - name: Fix permissions for Namada repository:
+      - name: Fix permissions for Namada repository
         id: namada-permissions
         run: |
           cp -r ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }} /tmp/namada-repo
