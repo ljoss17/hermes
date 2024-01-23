@@ -465,7 +465,7 @@ jobs:
         run: |
           cp -r ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }} /tmp/namada-repo
           chmod -R 777 /tmp/namada-repo
-        run: echo "NAMADA_REPO_PATH=$(nix build .#namada-src --print-out-paths)" >> "$GITHUB_OUTPUT"
+          echo "NAMADA_REPO_PATH=$(nix build .#namada-src --print-out-paths)" >> "$GITHUB_OUTPUT"
       - name: Generate Namada files
         run: |
           set -e
