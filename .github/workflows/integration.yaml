@@ -471,6 +471,8 @@ jobs:
           set -e
           rustup update
           rustup target add wasm32-unknown-unknown --toolchain=stable
+          rustc --version
+          rustup show
           cd ${{ steps.namada-permissions.outputs.NAMADA_REPO_PATH }}
           make build-wasm-scripts
       - env:
