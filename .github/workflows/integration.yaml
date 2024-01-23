@@ -474,6 +474,11 @@ jobs:
           git submodule update
           cmake .
           make wasm-opt
+          mkdir -p $HOME/bin
+          cp bin/wasm-opt $HOME/bin/wasm-opt
+          echo "PATH=\$HOME/bin:\$PATH" >> $GITHUB_ENV
+      - name: Display PATH for debugging
+        run: echo $PATH
       - name: Install libudev development package
         run: |
           sudo apt-get update
