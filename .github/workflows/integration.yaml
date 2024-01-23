@@ -468,7 +468,9 @@ jobs:
           echo "NAMADA_REPO_PATH=/tmp/namada-repo" >> "$GITHUB_OUTPUT"
       - name: Generate Namada files
         run: |
-          rustup target add wasm32-unknown-unknown
+          rustup toolchain add stable
+          rustup target add wasm32-unknown-unknown --toolchain=stable
+          rustup update
           set -e
           cd ${{ steps.namada-permissions.outputs.NAMADA_REPO_PATH }}
           make build-wasm-scripts
