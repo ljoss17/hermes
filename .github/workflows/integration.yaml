@@ -466,6 +466,13 @@ jobs:
           cp -r ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }} /tmp/namada-repo
           chmod -R 777 /tmp/namada-repo
           echo "NAMADA_REPO_PATH=/tmp/namada-repo" >> "$GITHUB_OUTPUT"
+      - name: Install Binaryen (wasm-opt)
+        run: |
+          git clone https://github.com/WebAssembly/binaryen.git
+          cd binaryen
+          cmake .
+          make wasm-opt
+          sudo cp wasm-opt /usr/local/bin
       - name: Install libudev development package
         run: |
           sudo apt-get update
