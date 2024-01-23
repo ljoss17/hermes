@@ -474,7 +474,6 @@ jobs:
           git submodule update
           cmake .
           make wasm-opt
-          sudo cp wasm-opt /usr/local/bin
       - name: Install libudev development package
         run: |
           sudo apt-get update
