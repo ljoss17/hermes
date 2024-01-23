@@ -1,6 +1,16 @@
 name: Integration
 on:
   pull_request:
+    paths:
+      - .github/workflows/integration.yaml
+      - Cargo.toml
+      - Cargo.lock
+      - flake.nix
+      - flake.lock
+      - ci/**
+      - e2e/**
+      - crates/**
+      - tools/**
 
   push:
     branches: master
