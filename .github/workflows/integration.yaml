@@ -466,6 +466,10 @@ jobs:
           cp -r ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }} /tmp/namada-repo
           chmod -R 777 /tmp/namada-repo
           echo "NAMADA_REPO_PATH=/tmp/namada-repo" >> "$GITHUB_OUTPUT"
+      - name: Install libudev development package
+        run: |
+          sudo apt-get update
+          sudo apt-get install libudev-dev
       - name: Generate Namada files
         run: |
           set -e
