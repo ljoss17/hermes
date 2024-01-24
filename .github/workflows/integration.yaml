@@ -477,7 +477,9 @@ jobs:
           git submodule init
           git submodule update
           cmake .
-          make wasm-opt
+          make
+          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)/lib
+          ./bin/wasm-opt --version
           mkdir -p $HOME/bin
           cp bin/wasm-opt $HOME/bin/wasm-opt
           export PATH=$HOME/bin:$PATH
