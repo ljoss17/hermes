@@ -484,10 +484,6 @@ jobs:
           cp bin/wasm-opt $HOME/bin/wasm-opt
           export PATH=$HOME/bin:$PATH
           wasm-opt --version
-      - name: Display PATH for debugging
-        run: echo $PATH
-      - name: Generate Namada files
-        run: |
           set -e
           rustup update
           rustup target add wasm32-unknown-unknown --toolchain=stable
