@@ -481,6 +481,7 @@ jobs:
           mkdir -p $HOME/bin
           cp bin/wasm-opt $HOME/bin/wasm-opt
           export PATH=$HOME/bin:$PATH
+          wasm-opt --version
       - name: Display PATH for debugging
         run: echo $PATH
       - name: Generate Namada files
