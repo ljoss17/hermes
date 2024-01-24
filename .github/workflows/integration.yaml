@@ -491,7 +491,8 @@ jobs:
           rustup show
           cd ${{ steps.namada-permissions.outputs.NAMADA_REPO_PATH }}
           make build
-          sudo make build-wasm-scripts
+          chmod -R 777 wasm/
+          make build-wasm-scripts
       - env:
           RUST_LOG: info
           RUST_BACKTRACE: 1
