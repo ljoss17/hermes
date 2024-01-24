@@ -492,6 +492,7 @@ jobs:
           cd ${{ steps.namada-permissions.outputs.NAMADA_REPO_PATH }}
           make build
           chmod -R 777 wasm/
+          ls -lh wasm/
           make build-wasm-scripts
       - env:
           RUST_LOG: info
