@@ -495,7 +495,6 @@ jobs:
           chmod -R 777 wasm/
           ls -lh wasm/
           make build-wasm-scripts
-          ls -l /home/runner/.masp-params
       - env:
           RUST_LOG: info
           RUST_BACKTRACE: 1
