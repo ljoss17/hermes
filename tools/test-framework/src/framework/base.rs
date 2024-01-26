@@ -103,7 +103,7 @@ where
 
         let builder = ChainBuilder::new_with_config(&config, runtime);
 
-        std::thread::sleep(Duration::from_secs(20));
+        std::thread::sleep(Duration::from_secs(60));
 
         self.test.run(&config, &builder)?;
 
