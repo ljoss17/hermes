@@ -471,6 +471,11 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install libudev-dev
+      - name: Download CometBFT
+        run: |
+          curl -o cometbft.tar.gz -LO https://github.com/cometbft/cometbft/releases/download/v0.37.2/cometbft_0.37.2_linux_amd64.tar.gz
+          tar -xvzf cometbft.tar.gz
+          mv cometbft /usr/local/bin
       - name: Install Binaryen (wasm-opt)
         run: |
           git clone https://github.com/WebAssembly/binaryen.git
