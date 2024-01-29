@@ -445,6 +445,8 @@ jobs:
         with:
           toolchain: stable
           override: true
+      - name: Install libudev
+        run: sudo apt-get update && sudo apt-get -y install libudev-dev
       - name: Install Protoc
         uses: heliaxdev/setup-protoc@v2
         with:
@@ -467,15 +469,17 @@ jobs:
           cp -r -L ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }} /tmp/namada-repo
           chmod -R 777 /tmp/namada-repo
           echo "NAMADA_REPO_PATH=/tmp/namada-repo" >> "$GITHUB_OUTPUT"
-      - name: Install libudev development package
-        run: |
-          sudo apt-get update
-          sudo apt-get install libudev-dev
       - name: Download CometBFT
         run: |
           curl -o cometbft.tar.gz -LO https://github.com/cometbft/cometbft/releases/download/v0.37.2/cometbft_0.37.2_linux_amd64.tar.gz
           tar -xvzf cometbft.tar.gz
           mv cometbft /usr/local/bin
+      - name: Download MASP parameters
+        run: |
+          mkdir -p /home/runner/.masp-params
+          curl -o /home/runner/.masp-params/masp-spend.params -L https://github.com/anoma/masp-mpc/releases/download/namada-trusted-setup/masp-spend.params\?raw\=true
+          curl -o /home/runner/.masp-params/masp-output.params -L https://github.com/anoma/masp-mpc/releases/download/namada-trusted-setup/masp-output.params?raw=true
+          curl -o /home/runner/.masp-params/masp-convert.params -L https://github.com/anoma/masp-mpc/releases/download/namada-trusted-setup/masp-convert.params?raw=true
       - name: Install Binaryen (wasm-opt)
         run: |
           git clone https://github.com/WebAssembly/binaryen.git

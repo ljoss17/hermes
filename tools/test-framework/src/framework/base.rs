@@ -3,8 +3,6 @@
     initializing the logger and loading the test configuration.
 */
 
-use std::time::Duration;
-
 use alloc::sync::Arc;
 use tokio::runtime::Runtime;
 use tracing::info;
@@ -102,8 +100,6 @@ where
         info!("starting test with test config: {:?}", config);
 
         let builder = ChainBuilder::new_with_config(&config, runtime);
-
-        std::thread::sleep(Duration::from_secs(60));
 
         self.test.run(&config, &builder)?;
 
