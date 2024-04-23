@@ -27,8 +27,8 @@ BASE_GENESIS_DIR="${NAMADA_DIR}/genesis/localnet"
 CHECKSUM_PATH="${NAMADA_DIR}/wasm/checksums.json"
 DATA_DIR="${HERMES_DIR}/data"
 
-LEDGER_ADDR_A="127.0.0.1:27657"
-LEDGER_ADDR_B="127.0.0.1:28657"
+LEDGER_ADDR_A="http://127.0.0.1:27657"
+LEDGER_ADDR_B="http://127.0.0.1:28657"
 
 HERMES_CONFIG_TEMPLATE="
 [global]
@@ -88,6 +88,8 @@ function make_genesis() {
   mkdir -p ${base_dir}/templates
   cp ${BASE_GENESIS_DIR}/*.toml ${base_dir}/templates
   sed -i .bak "s/epochs_per_year = .*/epochs_per_year = 31536/g" ${base_dir}/templates/parameters.toml
+  sed -i .bak "s/default_mint_limit = .*/default_mint_limit = \"1000000000\"/g" ${base_dir}/templates/parameters.toml
+  sed -i .bak "s/default_per_epoch_throughput_limit = .*/default_per_epoch_throughput_limit = \"1000000000\"/g" ${base_dir}/templates/parameters.toml
 
   mkdir ${base_dir}/pre-genesis
   cp -r ${BASE_GENESIS_DIR}/src/pre-genesis/* ${base_dir}/pre-genesis
@@ -142,7 +144,7 @@ function init_relayer_acc() {
   local base_dir=${DATA_DIR}/namada-${suffix}
 
   ${NAMADAW} --base-dir ${base_dir} \
-    key gen --alias relayer --unsafe-dont-encrypt
+    gen --alias relayer --unsafe-dont-encrypt
 }
 
 function add_relayer_key() {
@@ -206,11 +208,11 @@ sed -i .bak \
 ${NAMADAN} --base-dir ${DATA_DIR}/namada-a/setup/validator-0 \
   ledger run > ${DATA_DIR}/namada-a/namada.log 2>&1 &
 echo "Namada chain A's PID = $!"
+sleep 5
 
 ${NAMADAN} --base-dir ${DATA_DIR}/namada-b/setup/validator-0 \
   ledger run > ${DATA_DIR}/namada-b/namada.log 2>&1 &
 echo "Namada chain B's PID = $!"
-
 sleep 5
 
 # Create "relayer" account on each chain
@@ -218,8 +220,8 @@ init_relayer_acc "a" ${chain_id_a}
 init_relayer_acc "b" ${chain_id_b}
 
 # Get token addresses
-nam_addr_a=$(${NAMADAW} --base-dir ${DATA_DIR}/namada-a address find --alias nam | awk '{print $4}')
-nam_addr_b=$(${NAMADAW} --base-dir ${DATA_DIR}/namada-b address find --alias nam | awk '{print $4}')
+nam_addr_a=$(${NAMADAW} --base-dir ${DATA_DIR}/namada-a find --alias nam | awk '/"nam":/{print $3}')
+nam_addr_b=$(${NAMADAW} --base-dir ${DATA_DIR}/namada-b find --alias nam | awk '/"nam":/{print $3}')
 
 # Make Hermes config
 cd ${HERMES_DIR}
