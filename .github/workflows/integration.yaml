@@ -443,6 +443,8 @@ jobs:
       - name: Fix permissions for Namada repository
         id: namada-permissions
         run: |
+          cd ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}
+          git submodule update --init
           ls -lh ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm
           cp -r -L ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }} /tmp/namada-repo
           chmod -R 777 /tmp/namada-repo
