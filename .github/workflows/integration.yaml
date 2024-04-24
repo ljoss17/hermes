@@ -444,6 +444,7 @@ jobs:
         id: namada-permissions
         run: |
           set -euxo pipefail
+          echo "tmp"
           ls -lh ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm
           rsync -av ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/ /tmp/namada-repo || echo "rsync encountered an error"
           ls -lh /tmp/namada-repo || (echo "ls failed"; exit 1)
