@@ -446,7 +446,7 @@ jobs:
           cd ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}
           git submodule update --init
           ls -lh ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm
-          cp -r -L ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }} /tmp/namada-repo
+          rsync -av --exclude='proto' ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }} /tmp/namada-repo
           chmod -R 777 /tmp/namada-repo
           echo "NAMADA_REPO_PATH=/tmp/namada-repo" >> "$GITHUB_OUTPUT"
       - name: Download CometBFT
