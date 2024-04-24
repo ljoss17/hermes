@@ -191,7 +191,7 @@ pub fn bootstrap_namada_node(
 
     chain_driver.update_chain_config(&parameters_path, |parameters| {
         config::namada::set_pipeline_len(parameters, 2000)?;
-
+        // TODO update parameters here
         parameters_modifier(parameters)?;
 
         Ok(())
