@@ -444,7 +444,9 @@ jobs:
         id: namada-permissions
         run: |
           ls -lh ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm
+          echo "rsync"
           rsync -av --exclude='proto' ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }} /tmp/namada-repo
+          echo "done"
           ls -lh /tmp/namada-repo
           chmod -R 777 /tmp/namada-repo
           echo "NAMADA_REPO_PATH=/tmp/namada-repo" >> "$GITHUB_OUTPUT"
@@ -474,7 +476,7 @@ jobs:
           wasm-opt --version
           set -e
           cd ${{ steps.namada-permissions.outputs.NAMADA_REPO_PATH }}
-          ls -lh
+          ls -lh ${{ steps.namada-permissions.outputs.NAMADA_REPO_PATH }}
           cat Makefile
           make build
           chmod -R 777 wasm/
