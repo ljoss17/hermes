@@ -443,9 +443,10 @@ jobs:
       - name: Fix permissions for Namada repository
         id: namada-permissions
         run: |
+          set -x
           ls -lh ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm
           echo "rsync"
-          rsync -av --exclude='proto' ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }} /tmp/namada-repo
+          rsync -av --exclude='proto' ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }} /tmp/namada-repo || echo "rsync encountered an error"
           echo "done"
           ls -lh /tmp/namada-repo
           chmod -R 777 /tmp/namada-repo
