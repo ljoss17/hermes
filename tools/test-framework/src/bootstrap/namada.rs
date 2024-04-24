@@ -69,6 +69,7 @@ pub fn bootstrap_namada_node(
     let copy_loop = format!("for file in {namada_repo_path}/genesis/localnet/*.toml; do cp \"$file\" {templates_path}; done");
     simple_exec("namada", "sh", &["-c", &copy_loop])?;
 
+    // Update templates parameters
     chain_driver.update_chain_config("templates/parameters.toml", |parameters| {
         config::namada::set_default_mint_limit(parameters, 1000000000)?;
         config::namada::set_epochs_per_year(parameters, 31536)?;
