@@ -467,13 +467,13 @@ jobs:
           cmake .
           make
           export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)/lib
-          ./bin/wasm-opt --version
           mkdir -p $HOME/bin
           cp bin/wasm-opt $HOME/bin/wasm-opt
           export PATH=$HOME/bin:$PATH
           wasm-opt --version
           set -e
           cd ${{ steps.namada-permissions.outputs.NAMADA_REPO_PATH }}
+          cat Makefile
           make build
           chmod -R 777 wasm/
           make build-wasm-scripts
