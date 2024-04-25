@@ -493,15 +493,8 @@ jobs:
           wasm-opt --version
           set -e
           cd ${{ steps.namada-permissions.outputs.NAMADA_REPO_PATH }}
-          ls -lh ${{ steps.namada-permissions.outputs.NAMADA_REPO_PATH }}
-          echo "Will build"
-          chmod -R 777 wasm/
-          ls -lh wasm/
-          make build
-          echo "Will build Wasm"
-          ls -lh wasm/
-          chmod -R 777 wasm/
           make build-wasm-scripts
+          df -h
       - env:
           RUST_LOG: info
           RUST_BACKTRACE: 1
