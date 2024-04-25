@@ -455,6 +455,10 @@ jobs:
           cat /nix/store/m8j5gz5l1d5yjf6ii3yk204hsgdw6fmv-source/wasm/checksums.json > /tmp/tmp.json
           echo "test ls"
           ls -lh /tmp/
+          echo "id -a"
+          id -a
+          echo "chmod -R 777 /tmp/namada-repo"
+          chmod -R 777 /tmp/namada-repo
           echo "ls -ld /tmp/namada-repo"
           ls -ld /tmp/namada-repo
           echo "ls -ld /tmp/namada-repo/wasm"
@@ -463,7 +467,6 @@ jobs:
           cat /nix/store/m8j5gz5l1d5yjf6ii3yk204hsgdw6fmv-source/wasm/checksums.json > /tmp/namada-repo/wasm/checksums.json
           echo "rsync checksums.json done"
           ls -lh /tmp/namada-repo
-          chmod -R 777 /tmp/namada-repo
           echo "NAMADA_REPO_PATH=/tmp/namada-repo" >> "$GITHUB_OUTPUT"
       - name: Download CometBFT
         run: |
