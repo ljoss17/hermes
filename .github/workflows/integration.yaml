@@ -492,7 +492,10 @@ jobs:
           export PATH=$HOME/bin:$PATH
           wasm-opt --version
           set -e
+          cd ..
+          rm -rf binaryen/
           cd ${{ steps.namada-permissions.outputs.NAMADA_REPO_PATH }}
+          make build
           make build-wasm-scripts
           df -h
       - env:
