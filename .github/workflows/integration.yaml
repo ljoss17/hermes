@@ -451,7 +451,9 @@ jobs:
           ls -lh ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm
           cp -Rv ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/ /tmp/namada-repo/
           ls -lh /nix/store/m8j5gz5l1d5yjf6ii3yk204hsgdw6fmv-source/wasm/
-          echo "rsync checksums.json"
+          echo "cat checksums.json"
+          cat /nix/store/m8j5gz5l1d5yjf6ii3yk204hsgdw6fmv-source/wasm/checksums.json
+          echo "copy with cat checksums.json"
           cat /nix/store/m8j5gz5l1d5yjf6ii3yk204hsgdw6fmv-source/wasm/checksums.json > /tmp/namada-repo/wasm/checksums.json
           echo "rsync checksums.json done"
           ls -lh /tmp/namada-repo
