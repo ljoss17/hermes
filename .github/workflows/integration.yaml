@@ -405,7 +405,7 @@ jobs:
             command: namada
             account_prefix: ''
             native_token: nam
-          - package: .#gaia14 .#namada
+          - package: .#gaia15 .#namada
             command: gaiad,namada
             account_prefix: cosmos,''
             native_token: stake,nam
@@ -443,16 +443,15 @@ jobs:
       - name: Fix permissions for Namada repository
         id: namada-permissions
         run: |
-          mkdir -p /tmp/namada-repo
           ls -lh ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm
           rsync -av --exclude='wasm/checksums.json' ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/ /tmp/namada-repo/
-          ls -lh /nix/store/m8j5gz5l1d5yjf6ii3yk204hsgdw6fmv-source/wasm/
+          ls -lh ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm/
           echo "cat checksums.json"
-          cat /nix/store/m8j5gz5l1d5yjf6ii3yk204hsgdw6fmv-source/wasm/checksums.json
+          cat ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm/checksums.json
           echo "will ls"
           ls -lh /tmp/namada-repo/wasm/
           echo "test copy with cat"
-          cat /nix/store/m8j5gz5l1d5yjf6ii3yk204hsgdw6fmv-source/wasm/checksums.json > /tmp/tmp.json
+          cat ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm/checksums.json > /tmp/tmp.json
           echo "test ls"
           ls -lh /tmp/
           echo "id -a"
@@ -464,7 +463,7 @@ jobs:
           echo "ls -ld /tmp/namada-repo/wasm"
           ls -ld /tmp/namada-repo/wasm
           echo "copy with cat checksums.json"
-          cat /nix/store/m8j5gz5l1d5yjf6ii3yk204hsgdw6fmv-source/wasm/checksums.json > /tmp/namada-repo/wasm/checksums.json
+          cat ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm/checksums.json > /tmp/namada-repo/wasm/checksums.json
           echo "rsync checksums.json done"
           ls -lh /tmp/namada-repo
           echo "NAMADA_REPO_PATH=/tmp/namada-repo" >> "$GITHUB_OUTPUT"
