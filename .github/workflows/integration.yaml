@@ -411,14 +411,19 @@ jobs:
             native_token: stake,nam
     steps:
       - uses: actions/checkout@v4
-      - uses: DeterminateSystems/nix-installer-action@main
-        with:
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+        with: 
           extra-conf: |
-            substituters = https://cache.nixos.org https://cosmosnix-store.s3.us-east-2.amazonaws.com
-            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cosmosnix.store-1:O28HneR1MPtgY3WYruWFuXCimRPwY7em5s0iynkQxdk=
-      - uses: cachix/cachix-action@v12
+            substituters = https://cache.nixos.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+      - name: Install Cachix
+        uses: cachix/cachix-action@v14
+        with: 
+          name: cosmos-nix
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
-          name: cosmos
+          toolchain: stable
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
@@ -446,7 +451,7 @@ jobs:
           ls -lh ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm
           cp -Rv ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/ /tmp/namada-repo/
           ls -lh /nix/store/m8j5gz5l1d5yjf6ii3yk204hsgdw6fmv-source/wasm/
-          cp -v /nix/store/m8j5gz5l1d5yjf6ii3yk204hsgdw6fmv-source/wasm/checksums.json /tmp/namada-repo/wasm/checksums.json
+          rsync -avh /nix/store/m8j5gz5l1d5yjf6ii3yk204hsgdw6fmv-source/wasm/checksums.json /tmp/namada-repo/wasm/
           ls -lh /tmp/namada-repo
           chmod -R 777 /tmp/namada-repo
           echo "NAMADA_REPO_PATH=/tmp/namada-repo" >> "$GITHUB_OUTPUT"
