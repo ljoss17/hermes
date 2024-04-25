@@ -449,16 +449,12 @@ jobs:
         id: namada-permissions
         run: |
           ls -lh ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm
-          cp -Rv ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/ /tmp/namada-repo/
+          rsync -av --exclude='wasm/checksums.json' ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/ /tmp/namada-repo/
           ls -lh /nix/store/m8j5gz5l1d5yjf6ii3yk204hsgdw6fmv-source/wasm/
           echo "cat checksums.json"
           cat /nix/store/m8j5gz5l1d5yjf6ii3yk204hsgdw6fmv-source/wasm/checksums.json
           echo "will ls"
           ls -lh /tmp/namada-repo/wasm/
-          echo "will chmod to rm"
-          chmod u+w /tmp/namada-repo/wasm/checksums.json
-          echo "rm checksums.json"
-          rm /tmp/namada-repo/wasm/checksums.json || echo "failed to rm: $?"
           echo "copy with cat checksums.json"
           cat /nix/store/m8j5gz5l1d5yjf6ii3yk204hsgdw6fmv-source/wasm/checksums.json > /tmp/namada-repo/wasm/checksums.json
           echo "rsync checksums.json done"
