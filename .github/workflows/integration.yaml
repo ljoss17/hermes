@@ -445,6 +445,7 @@ jobs:
         run: |
           ls -lh ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm
           cp -Rv ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/ /tmp/namada-repo/
+          cp -L ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm/checksums.json /tmp/namada-repo/wasm/checksums.json
           ls -lh /tmp/namada-repo
           chmod -R 777 /tmp/namada-repo
           echo "NAMADA_REPO_PATH=/tmp/namada-repo" >> "$GITHUB_OUTPUT"
