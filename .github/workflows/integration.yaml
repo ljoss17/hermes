@@ -455,6 +455,10 @@ jobs:
           cat /nix/store/m8j5gz5l1d5yjf6ii3yk204hsgdw6fmv-source/wasm/checksums.json > /tmp/tmp.json
           echo "test ls"
           ls -lh /tmp/
+          echo "ls -ld /tmp/namada-repo"
+          ls -ld /tmp/namada-repo
+          echo "ls -ld /tmp/namada-repo/wasm"
+          ls -ld /tmp/namada-repo/wasm
           echo "copy with cat checksums.json"
           cat /nix/store/m8j5gz5l1d5yjf6ii3yk204hsgdw6fmv-source/wasm/checksums.json > /tmp/namada-repo/wasm/checksums.json
           echo "rsync checksums.json done"
