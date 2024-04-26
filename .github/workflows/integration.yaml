@@ -446,6 +446,7 @@ jobs:
         id: namada-permissions
         run: |
           rsync -av ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/ /tmp/namada-repo/
+          chmod -R a+w /tmp/namada-repo
           cat ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm/checksums.json > /tmp/namada-repo/wasm/checksums.json
           chmod -R a+w /tmp/namada-repo
           echo "NAMADA_REPO_PATH=/tmp/namada-repo" >> "$GITHUB_OUTPUT"
