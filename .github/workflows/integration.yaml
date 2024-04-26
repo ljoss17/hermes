@@ -445,29 +445,8 @@ jobs:
       - name: Fix permissions for Namada repository
         id: namada-permissions
         run: |
-          ls -lh ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm
-          rsync -av --exclude='wasm/checksums.json' ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/ /tmp/namada-repo/
-          ls -lh ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm/
-          echo "cat checksums.json"
-          cat ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm/checksums.json
-          echo "will ls"
-          ls -lh /tmp/namada-repo/wasm/
-          echo "test copy with cat"
-          cat ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm/checksums.json > /tmp/tmp.json
-          echo "test ls"
-          ls -lh /tmp/
-          echo "id -a"
-          id -a
-          echo "chmod -R 777 /tmp/namada-repo"
-          chmod -R 777 /tmp/namada-repo
-          echo "ls -ld /tmp/namada-repo"
-          ls -ld /tmp/namada-repo
-          echo "ls -ld /tmp/namada-repo/wasm"
-          ls -ld /tmp/namada-repo/wasm
-          echo "copy with cat checksums.json"
-          cat ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm/checksums.json > /tmp/namada-repo/wasm/checksums.json
-          echo "rsync checksums.json done"
-          ls -lh /tmp/namada-repo
+          rsync -av ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }} /tmp/namada-repo
+          chmod -R a+w /tmp/namada-repo
           echo "NAMADA_REPO_PATH=/tmp/namada-repo" >> "$GITHUB_OUTPUT"
       - name: Download CometBFT
         run: |
