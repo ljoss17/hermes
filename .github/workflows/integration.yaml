@@ -482,6 +482,12 @@ jobs:
           df -h
           make build-wasm-scripts
           df -h
+      - name: Start monitoring in the background
+        run: |
+          (while true; do
+            top -b -n 1 >> top_output.txt
+            sleep 60
+          done) &
       - env:
           RUST_LOG: info
           RUST_BACKTRACE: 1
@@ -494,6 +500,12 @@ jobs:
           nix shell ${{ matrix.chain.package }} -c \
             cargo nextest run -p ibc-integration-test --no-fail-fast --failure-output final --test-threads=1 \
             --features namada
+      - name: Upload monitoring results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: system-logs
+          path: top_output.txt
       # Disable running MBT tests until flakiness is addressed
       # - env:
       #     RUST_LOG: debug
