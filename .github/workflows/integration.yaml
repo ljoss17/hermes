@@ -451,7 +451,7 @@ jobs:
           rsync -avL --exclude='wasm/checksums.json' --exclude='crates/apps/proto' ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/ /tmp/namada-repo/
           echo "rsync problematic files"
           ls -lh ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/crates/apps/
-          rsync -av ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/crates/apps/proto/ /tmp/namada-repo/crates/apps/proto/
+          rsync -av ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/crates/apps/ /tmp/namada-repo/crates/apps/
           echo "done"
           chmod -R a+w /tmp/namada-repo
           cat ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm/checksums.json > /tmp/namada-repo/wasm/checksums.json
