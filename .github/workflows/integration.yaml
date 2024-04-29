@@ -465,7 +465,6 @@ jobs:
         run: |
           df -h
           git clone https://github.com/WebAssembly/binaryen.git
-          df -h
           cd binaryen
           git submodule init
           git submodule update
@@ -476,6 +475,9 @@ jobs:
           cp bin/wasm-opt $HOME/bin/wasm-opt
           export PATH=$HOME/bin:$PATH
           wasm-opt --version
+          df -h
+          cd ..
+          rm -rf binaryen/
           set -e
           cd ${{ steps.namada-permissions.outputs.NAMADA_REPO_PATH }}
           make build
