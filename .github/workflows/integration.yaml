@@ -501,6 +501,10 @@ jobs:
           NAMADA_REPO_PATH: /tmp/namada-repo
         run: |
           ls -lh /tmp/namada-repo
+          ls -lh /tmp/namada-repo/genesis/localnet/
+          ls -lh /tmp/namada-repo/genesis/localnet/src/pre-genesis/
+          ls -lh /tmp/namada-repo/genesis/localnet/src/pre-genesis/validator-0
+          ls -lh /tmp/namada-repo/wasm/
           chmod -R a+w /tmp/namada-repo
           nix shell ${{ matrix.chain.package }} -c \
             cargo nextest run -p ibc-integration-test --no-fail-fast --failure-output final --test-threads=1 \
