@@ -445,11 +445,13 @@ jobs:
       - name: Fix permissions for Namada repository
         id: namada-permissions
         run: |
-          find /nix/store/m8j5gz5l1d5yjf6ii3yk204hsgdw6fmv-source/ -exec test -r {} \; -o -exec echo "Cannot read: {}" \;
           mkdir -p /tmp/namada-repo/
           chmod -R a+w /tmp/namada-repo
-          cd ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}
-          tar cvf - --exclude='wasm/checksums.json' . | tar xf - -C /tmp/namada-repo
+          echo "rsync without problematic files"
+          rsync -avL --exclude='wasm/checksums.json' --exclude='crates/apps/proto' ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/ /tmp/namada-repo/
+          echo "rsync problematic files"
+          rsync -av --no-links ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/crates/apps/proto/ /tmp/namada-repo/crates/apps/proto/
+          echo "done"
           chmod -R a+w /tmp/namada-repo
           cat ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm/checksums.json > /tmp/namada-repo/wasm/checksums.json
           chmod -R a+w /tmp/namada-repo
