@@ -448,7 +448,7 @@ jobs:
           mkdir -p /tmp/namada-repo/
           chmod -R a+w /tmp/namada-repo
           cd ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}
-          tar --exclude='wasm/checksums.json' cvf - . | tar xf - -C /tmp/namada-repo
+          tar cvf - --exclude='wasm/checksums.json' . | tar xf - -C /tmp/namada-repo
           chmod -R a+w /tmp/namada-repo
           cat ${{ steps.namada-repo-path.outputs.NAMADA_REPO_PATH }}/wasm/checksums.json > /tmp/namada-repo/wasm/checksums.json
           chmod -R a+w /tmp/namada-repo
