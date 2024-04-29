@@ -477,12 +477,13 @@ jobs:
           wasm-opt --version
           df -h
           cd ..
-          rm -rf binaryen/
           set -e
           cd ${{ steps.namada-permissions.outputs.NAMADA_REPO_PATH }}
           make build
           df -h
           make build-wasm-scripts
+          df -h
+          nix-collect-garbage -d
           df -h
       - name: Start monitoring in the background
         run: |
