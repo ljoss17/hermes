@@ -28,4 +28,4 @@ jobs:
       - name: Install Cross
         run: cargo install cross --locked
       - name: Cross Compile
-        run: cross build --release --bin hermes --target aarch64-unknown-linux-gnu
+        run: CROSS_DEBUG=1 cross build --release --bin hermes --target aarch64-unknown-linux-gnu
