@@ -1,6 +1,2 @@
 [target.aarch64-unknown-linux-gnu]
-# If you omit "image =", Cross will use its default aarch64-unknown-linux-gnu image.
-
-[target.aarch64-unknown-linux-gnu.packages]
-# These apt packages get installed in the Docker container environment
-apt = ["libssl-dev"]
+dockerfile = "./ci/cross/aarch64-linux.Dockerfile"
