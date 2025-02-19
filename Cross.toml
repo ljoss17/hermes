@@ -1,6 +1,5 @@
 [target.aarch64-unknown-linux-gnu]
 pre-build = [
-    "apt update",
-    "apt install -y libssl-dev libsasl2-dev",
-    "dpkg -L libssl-dev"
+    "apt-get update -q",
+    "DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends libssl-dev libsasl2-dev"
 ]
