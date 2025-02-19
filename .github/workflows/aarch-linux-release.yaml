@@ -25,15 +25,7 @@ jobs:
         with:
           version: "25.0"
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Install dependencies for cross-compile
-        run: |
-          sudo dpkg --add-architecture arm64
-          sudo apt-get update
-          sudo apt-get install -y \
-            gcc-aarch64-linux-gnu \
-            libssl-dev:arm64 \
-            pkg-config
       - name: Install Cross
-        run: cargo install cross --locked
+        run: cargo install cross --locked --version ^0.3
       - name: Cross Compile
         run: cross build --release --bin hermes --target aarch64-unknown-linux-gnu
