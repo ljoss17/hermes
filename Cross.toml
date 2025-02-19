@@ -2,5 +2,5 @@
 pre-build = [
     "apt-get update -q",
     "DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends apt-utils libssl-dev libsasl2-dev pkg-config",
-    "dpkg --add-architecture arm64 && apt-get update -q && apt-get install -y --no-install-recommends libssl-dev:arm64 clang-5.0"
+    "dpkg --add-architecture arm64 && apt-get update -q && apt-get install -y --no-install-recommends libssl-dev:arm64 clang-5.0 protobuf-compiler"
 ]
