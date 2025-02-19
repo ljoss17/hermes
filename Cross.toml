@@ -1,2 +1,6 @@
 [target.aarch64-unknown-linux-gnu]
-pre-build = ["apt install libssl-dev libsasl2-dev -y"]
+pre-build = [
+    "apt update",
+    "apt install -y libssl-dev libsasl2-dev",
+    "dpkg -L libssl-dev"
+]
