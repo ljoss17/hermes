@@ -23,8 +23,10 @@ jobs:
       - name: Install Protoc
         uses: heliaxdev/setup-protoc@v2
         with:
-          version: "25.0"
+          version: "26.0"
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check Protoc Version
+        run: protoc --version
       - name: Install Cross
         run: cargo install cross --locked
       - name: Cross Compile
