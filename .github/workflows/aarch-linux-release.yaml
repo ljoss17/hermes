@@ -3,7 +3,7 @@ name: Cross Comilation Test
 on:
   pull_request:
     paths:
-      - .github/workflows/namada.yaml
+      - .github/workflows/aarch-linux-release.yaml
       - Cargo.toml
       - Cargo.lock
       - flake.nix
