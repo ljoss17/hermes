@@ -10,7 +10,7 @@ pre-build = [
     "apt-get install -y --no-install-recommends libssl-dev:arm64 unzip",
 
     # Install Clang 10 or newer
-    "apt-get install -y --no-install-recommends clang-10.0",
+    "apt-get install -y --no-install-recommends clang-7.0",
     
     # Verify Clang installation
     "clang --version",
