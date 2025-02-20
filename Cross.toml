@@ -2,7 +2,7 @@
 pre-build = [
     "apt-get update -q",
     "DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends apt-utils libssl-dev libsasl2-dev pkg-config",
-    "dpkg --add-architecture arm64 && apt-get update -q && apt-get install -y --no-install-recommends libssl-dev:arm64 clang-5.0 g++-10 unzip",
+    "dpkg --add-architecture arm64 && apt-get update -q && apt-get install -y --no-install-recommends libssl-dev:arm64 clang-5.0 unzip",
     "curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v25.0/protoc-25.0-linux-aarch_64.zip",
     "unzip protoc-25.0-linux-aarch_64.zip -d /usr/local",
     "chmod +x /usr/local/bin/protoc",
