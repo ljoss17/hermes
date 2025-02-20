@@ -10,10 +10,10 @@ pre-build = [
     "apt-get install -y --no-install-recommends libssl-dev:arm64 unzip",
 
     # Install Clang 10 or newer
-    "apt-get install -y --no-install-recommends clang-10 lld-10 llvm-10",
+    "apt-get install -y --no-install-recommends clang-10.0",
     
     # Verify Clang installation
-    "clang-10 --version",
+    "clang --version",
 
     # Install Protoc manually
     "curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v25.0/protoc-25.0-linux-x86_64.zip",
