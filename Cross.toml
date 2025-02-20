@@ -1,0 +1,32 @@
+[target.aarch64-unknown-linux-gnu]
+pre-build = [
+    "apt-get update -q",
+    "DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends apt-utils libssl-dev libsasl2-dev pkg-config",
+    
+    # Enable ARM64 architecture
+    "dpkg --add-architecture arm64 && apt-get update -q",
+    
+    # Install system dependencies
+    "apt-get install -y --no-install-recommends libssl-dev:arm64 unzip",
+
+    # Download and install Clang 19.1.7 for AARCH64
+    "curl -LO https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.7/clang+llvm-19.1.7-aarch64-linux-gnu.tar.xz",
+    "tar -xf clang+llvm-19.1.7-aarch64-linux-gnu.tar.xz",
+    "mv clang+llvm-19.1.7-aarch64-linux-gnu /usr/local/llvm",
+
+    # Set Clang path
+    "export PATH=\"/usr/local/llvm/bin:$PATH\"",
+    "export CC=/usr/local/llvm/bin/clang",
+    "export CXX=/usr/local/llvm/bin/clang++",
+
+    # Verify Clang installation
+    "/usr/local/llvm/bin/clang --version",
+
+    # Install Protoc manually
+    "curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v25.0/protoc-25.0-linux-x86_64.zip",
+    "unzip protoc-25.0-linux-x86_64.zip -d /usr/local",
+    "chmod +x /usr/local/bin/protoc",
+
+    # Set environment variables
+    "export PATH=\"/usr/local/bin:$PATH\"",
+]

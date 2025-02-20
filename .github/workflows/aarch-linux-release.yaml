@@ -1,0 +1,39 @@
+name: Cross Comilation Test
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/aarch-linux-release.yaml
+      - Cargo.toml
+      - Cargo.lock
+      - flake.nix
+      - flake.lock
+      - ci/**
+      - e2e/**
+      - crates/**
+      - tools/**
+
+jobs:
+  cross-compile-aarch:
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Protoc
+        uses: heliaxdev/setup-protoc@v2
+        with:
+          version: "26.0"
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check Protoc Version
+        run: protoc --version
+      - name: Install Cross
+        run: cargo install cross --locked
+      - name: Cross Compile
+        run: |
+          export CROSS_DEBUG=1
+          export CROSS_DISABLE_HOST_FALLBACK=1
+          export OPENSSL_DIR=/usr
+          export OPENSSL_INCLUDE_DIR=/usr/include
+          export PKG_CONFIG_ALLOW_CROSS=1
+          cross build --release --bin hermes --target aarch64-unknown-linux-gnu
