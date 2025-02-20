@@ -9,12 +9,14 @@ pre-build = [
     # Install system dependencies
     "apt-get install -y --no-install-recommends libssl-dev:arm64 unzip",
 
-    # Install Clang 10 or newer
-    "apt-get install -y --no-install-recommends clang-6.0",
-    # Install Clang 10 or newer
-    "apt-get install -y --no-install-recommends clang-7.0",
-    # Install Clang 10 or newer
-    "apt-get install -y --no-install-recommends clang-8.0",
+    # Add LLVM official repository
+    "wget -O - https://apt.llvm.org/llvm.sh | bash",
+
+    # Install latest available Clang (change version if needed)
+    "apt-get install -y clang-16 lld-16 llvm-16",
+
+    # Verify Clang installation
+    "clang-16 --version",
 
     # Install Protoc manually
     "curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v25.0/protoc-25.0-linux-x86_64.zip",
@@ -23,6 +25,6 @@ pre-build = [
 
     # Set environment variables
     "export PATH=\"/usr/local/bin:$PATH\"",
-    "export CC=clang-10",
-    "export CXX=clang++-10"
+    "export CC=clang-16",
+    "export CXX=clang++-16"
 ]
