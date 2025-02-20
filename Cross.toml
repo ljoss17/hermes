@@ -9,10 +9,10 @@ pre-build = [
     # Install system dependencies
     "apt-get install -y --no-install-recommends libssl-dev:arm64 unzip",
 
-    # Download and install Clang 16 manually
-    "curl -LO https://github.com/llvm/llvm-project/releases/download/llvmorg-16.0.6/clang+llvm-16.0.6-x86_64-linux-gnu-ubuntu-22.04.tar.xz",
-    "tar -xf clang+llvm-16.0.6-x86_64-linux-gnu-ubuntu-22.04.tar.xz",
-    "mv clang+llvm-16.0.6-x86_64-linux-gnu-ubuntu-22.04 /usr/local/llvm",
+    # Download and install Clang 19.1.7 for AARCH64
+    "curl -LO https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.7/clang+llvm-19.1.7-aarch64-linux-gnu.tar.xz",
+    "tar -xf clang+llvm-19.1.7-aarch64-linux-gnu.tar.xz",
+    "mv clang+llvm-19.1.7-aarch64-linux-gnu /usr/local/llvm",
 
     # Set Clang path
     "export PATH=\"/usr/local/llvm/bin:$PATH\"",
