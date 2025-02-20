@@ -2,12 +2,26 @@
 pre-build = [
     "apt-get update -q",
     "DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends apt-utils libssl-dev libsasl2-dev pkg-config",
-    "dpkg --add-architecture arm64 && apt-get update -q && apt-get install -y --no-install-recommends libssl-dev:arm64 unzip",
-    "apt-get update & apt-get upgrade -y",
-    "apt-get install gcc-9 g++-9",
-    "apt-get install clang-9",
+    
+    # Enable ARM64 architecture
+    "dpkg --add-architecture arm64 && apt-get update -q",
+    
+    # Install system dependencies
+    "apt-get install -y --no-install-recommends libssl-dev:arm64 unzip",
+
+    # Install Clang 10 or newer
+    "apt-get install -y --no-install-recommends clang-10 lld-10 llvm-10",
+    
+    # Verify Clang installation
+    "clang-10 --version",
+
+    # Install Protoc manually
     "curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v25.0/protoc-25.0-linux-x86_64.zip",
     "unzip protoc-25.0-linux-x86_64.zip -d /usr/local",
     "chmod +x /usr/local/bin/protoc",
-    "export PATH=\"/usr/local/bin:$PATH\""
+
+    # Set environment variables
+    "export PATH=\"/usr/local/bin:$PATH\"",
+    "export CC=clang-10",
+    "export CXX=clang++-10"
 ]
